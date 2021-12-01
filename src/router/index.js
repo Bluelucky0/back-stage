@@ -7,12 +7,12 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Main',
+    name: 'main',
     component: Main,
     children:[
       {
         path:'/',
-        name:'Home',
+        name:'home',
         component:()=>import(/* webpackChunkName: "about" */ '../views/Home/Home.vue')
       }
     ]

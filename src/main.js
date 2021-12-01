@@ -7,7 +7,7 @@ import '../src/assets/style/common.css'
 // import echarts from 'echarts'
 // Vue.prototype.$echarts = echarts
 
-import { container,aside,header,main,menu,submenu,menuItem,MenuItemGroup,Button,dropdown,DropdownMenu,DropdownItem,Row,Col,Card,Table,TableColumn} from 'element-ui';
+import { container,aside,header,main,menu,submenu,menuItem,MenuItemGroup,Button,dropdown,DropdownMenu,DropdownItem,Row,Col,Card,Table,TableColumn,Tag} from 'element-ui';
 Vue.use(container)
 Vue.use(aside)
 Vue.use(header)
@@ -25,6 +25,7 @@ Vue.use(Col)
 Vue.use(Card)
 Vue.use(Table)
 Vue.use(TableColumn)
+Vue.use(Tag)
 
 if(process.env.NODE_ENV ==='development') require('@/mock/index.js')
 

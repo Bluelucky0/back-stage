@@ -53,7 +53,7 @@
       </el-card>
     </el-col>
 
-    <el-col :span="16" style="margin-top: 20px" class="lint">
+    <el-col :span="16" style="margin-top: 20px">
       <div class="num">
         <el-card
           class="card-card"
@@ -74,14 +74,20 @@
         </el-card>
       </div>
       <el-card shadow="hover" style="height: 280px" class="one">
-        <div style="height: 280px" ref="echart"></div>
+        <e-chart :chartData="echartData.order" style="height: 280px"></e-chart>
+        <!-- <div style="height: 280px" ref="echart"></div> -->
       </el-card>
       <div class="graph">
         <el-card shadow="hover" style="height: 260px">
-          <div style="height: 240px" ref="userEchart"></div>
+          <!-- <div style="height: 240px" ref="userEchart"></div> -->
+          <e-chart :chartData="echartData.user" style="height: 260px"></e-chart>
         </el-card>
         <el-card shadow="hover" style="height: 260px">
-          <div style="height: 240px" ref="videoEchart"></div>
+          <!-- <div style="height: 240px" ref="videoEchart"></div> -->
+          <e-chart
+            :chartData="echartData.video"
+            style="height: 260px"
+          ></e-chart>
         </el-card>
       </div>
     </el-col>
@@ -90,9 +96,11 @@
 
 <script>
 import { getHomeData } from "../../api/getHomeDate";
-import * as echarts from "echarts";
+// import * as echarts from "echarts";
+import EChart from "../../components/EChart.vue";
 // const echarts = require("echarts");
 export default {
+  components: { EChart },
   name: "Home",
   data() {
     return {
@@ -135,104 +143,117 @@ export default {
           color: "#5ab1ef",
         },
       ],
-      echartsData: {
+      // echartsData: {
+      //   // order: {
+      //   //   legend: {
+      //   //     textStyle: {
+      //   //       color: "#333",
+      //   //     },
+      //   //   },
+      //   //   grid: {
+      //   //     left: "20%",
+      //   //   },
+      //   //   //提示框
+      //   //   tooltip: {
+      //   //     trigger: "axis",
+      //   //   },
+      //   //   xAxis: {
+      //   //     type: "category",
+      //   //     data: [],
+      //   //     axisLine: {
+      //   //       lineStyle: {
+      //   //         color: "#17b3a3",
+      //   //       },
+      //   //     },
+      //   //     axisLabel: {
+      //   //       interval: 0,
+      //   //       color: "#333",
+      //   //     },
+      //   //   },
+      //   //   yAxis: [
+      //   //     {
+      //   //       type: "value",
+      //   //       axisLine: {
+      //   //         lineStyle: {
+      //   //           color: "#17b3a3",
+      //   //         },
+      //   //       },
+      //   //     },
+      //   //   ],
+      //   //   color: [
+      //   //     "#2ec7c9",
+      //   //     "#b6a2de",
+      //   //     "#5ab1ef",
+      //   //     "#ffb980",
+      //   //     "#d87a80",
+      //   //     "#8d98b3",
+      //   //   ],
+      //   //   series: [],
+      //   // },
+      //   // user: {
+      //   //   legend: {
+      //   //     textStyle: {
+      //   //       color: "#333",
+      //   //     },
+      //   //   },
+      //   //   grid: {
+      //   //     left: "20%",
+      //   //   },
+      //   //   tooltip: {
+      //   //     trigger: "axis",
+      //   //   },
+      //   //   xAxis: {
+      //   //     type: "category", //类目轴
+      //   //     data: [],
+      //   //     axisLine: {
+      //   //       lineStyle: {
+      //   //         color: "#17b3a3",
+      //   //       },
+      //   //     },
+      //   //     axisLabel: {
+      //   //       interval: 0,
+      //   //       color: "#333",
+      //   //     },
+      //   //   },
+      //   //   yAxis: [
+      //   //     {
+      //   //       type: "value",
+      //   //       axisLine: {
+      //   //         lineStyle: {
+      //   //           color: "#17b3a3",
+      //   //         },
+      //   //       },
+      //   //     },
+      //   //   ],
+      //   //   color: ["#2ec7c9", "#b6a2de"],
+      //   //   series: [],
+      //   // },
+      //   video: {
+      //     tooltip: {
+      //       trigger: "item",
+      //     },
+      //     color: [
+      //       "#0f78f4",
+      //       "#dd536b",
+      //       "#9462e5",
+      //       "#a6a6a6",
+      //       "#e1bb22",
+      //       "#39c362",
+      //       "#3ed1cf",
+      //     ],
+      //     series: [],
+      //   },
+      // },
+      echartData: {
         order: {
-          legend: {
-            textStyle: {
-              color: "#333",
-            },
-          },
-          grid: {
-            left: "20%",
-          },
-          //提示框
-          tooltip: {
-            trigger: "axis",
-          },
-          xAxis: {
-            type: "category",
-            data: [],
-            axisLine: {
-              lineStyle: {
-                color: "#17b3a3",
-              },
-            },
-            axisLabel: {
-              interval: 0,
-              color: "#333",
-            },
-          },
-          yAxis: [
-            {
-              type: "value",
-              axisLine: {
-                lineStyle: {
-                  color: "#17b3a3",
-                },
-              },
-            },
-          ],
-          color: [
-            "#2ec7c9",
-            "#b6a2de",
-            "#5ab1ef",
-            "#ffb980",
-            "#d87a80",
-            "#8d98b3",
-          ],
+          xData: [],
           series: [],
         },
         user: {
-          legend: {
-            textStyle: {
-              color: "#333",
-            },
-          },
-          grid: {
-            left: "20%",
-          },
-          tooltip: {
-            trigger: "axis",
-          },
-          xAxis: {
-            type: "category", //类目轴
-            data: [],
-            axisLine: {
-              lineStyle: {
-                color: "#17b3a3",
-              },
-            },
-            axisLabel: {
-              interval: 0,
-              color: "#333",
-            },
-          },
-          yAxis: [
-            {
-              type: "value",
-              axisLine: {
-                lineStyle: {
-                  color: "#17b3a3",
-                },
-              },
-            },
-          ],
-          color: ["#2ec7c9", "#b6a2de"],
+          xData: [],
           series: [],
         },
         video: {
-          tooltip: {
-            trigger: "item",
-          },
-          color: [
-            "#0f78f4",
-            "#dd536b",
-            "#9462e5",
-            "#a6a6a6",
-            "#e1bb22",
-            "#39c362",
-            "#3ed1cf",
-          ],
           series: [],
         },
       },
@@ -245,43 +266,76 @@ export default {
         this.tableData = res.data.data.tableData;
 
         //折线图
+        // const order = res.data.data.orderData;
+        // this.echartsData.order.xAxis.data = order.date;
+        // let keyArray = Object.keys(order.data[0]);
+        // keyArray.forEach((key) => {
+        //   this.echartsData.order.series.push({
+        //     name: key,
+        //     data: order.data.map((item) => item[key]),
+        //     type: "line",
+        //   });
+        // });
+        // const myEchartsOrder = echarts.init(this.$refs.echart);
+        // myEchartsOrder.setOption(this.echartsData.order);
+
+        //用组件传值的方式
         const order = res.data.data.orderData;
-        this.echartsData.order.xAxis.data = order.date;
+        this.echartData.order.xData = order.date;
         let keyArray = Object.keys(order.data[0]);
         keyArray.forEach((key) => {
-          this.echartsData.order.series.push({
+          this.echartData.order.series.push({
             name: key,
             data: order.data.map((item) => item[key]),
             type: "line",
           });
         });
-        const myEchartsOrder = echarts.init(this.$refs.echart);
-        myEchartsOrder.setOption(this.echartsData.order);
 
         //柱状图
-        this.echartsData.user.xAxis.data = res.data.data.userData.map(
+        // this.echartsData.user.xAxis.data = res.data.data.userData.map(
+        //   (item) => item.date
+        // );
+        // this.echartsData.user.series.push({
+        //   name: "新增用户",
+        //   data: res.data.data.userData.map((item) => item.new),
+        //   type: "bar",
+        // });
+        // this.echartsData.user.series.push({
+        //   name: "活跃用户",
+        //   data: res.data.data.userData.map((item) => item.active),
+        //   type: "bar",
+        // });
+        // const myuserEchart = echarts.init(this.$refs.userEchart);
+        // myuserEchart.setOption(this.echartsData.user);
+
+        //用组件传值的方式
+        this.echartData.user.xData = res.data.data.userData.map(
           (item) => item.date
         );
-        this.echartsData.user.series.push({
+        this.echartData.user.series.push({
           name: "新增用户",
           data: res.data.data.userData.map((item) => item.new),
           type: "bar",
         });
-        this.echartsData.user.series.push({
+        this.echartData.user.series.push({
           name: "活跃用户",
           data: res.data.data.userData.map((item) => item.active),
           type: "bar",
         });
-        const myuserEchart = echarts.init(this.$refs.userEchart);
-        myuserEchart.setOption(this.echartsData.user);
 
         //饼状图
-        this.echartsData.video.series.push({
+        // this.echartsData.video.series.push({
+        //   data: res.data.data.videoData,
+        //   type: "pie",
+        // });
+        // const myVideoEchart = echarts.init(this.$refs.videoEchart);
+        // myVideoEchart.setOption(this.echartsData.video);
+
+        //用组件传值的方式
+        this.echartData.video.series.push({
           data: res.data.data.videoData,
           type: "pie",
         });
-        const myVideoEchart = echarts.init(this.$refs.videoEchart);
-        myVideoEchart.setOption(this.echartsData.video);
       });
     },
   },
@@ -302,7 +356,8 @@ export default {
 }
 
 .topCard {
-  width: 300px;
+  // width: 300px;
+  width: 80%;
   height: 300px;
   background-color: rgb(237, 240, 243);
   .card-top {
@@ -330,10 +385,13 @@ export default {
   }
 }
 .table-card {
-  width: 300px;
+  // width: 300px;
+  // text-align: center;
+  width: 80%;
   margin-top: 30px;
 }
 .num {
+  width: 100%;
   display: flex;
   align-items: center;
   // height: 300px;
@@ -360,17 +418,21 @@ export default {
   }
 }
 .one {
-  width: 600px;
+  width: 90%;
   height: 200px;
   // margin-top: 30px;
-  margin: 30px auto;
+  margin: 20px auto;
   align-items: center;
 }
 .graph {
+  width: 90%;
   display: flex;
   justify-content: space-between;
+  // justify-content: space-between;
+  align-items: center;
   .el-card {
-    width: 300px;
+    width: 440px;
+    margin-left: 20px;
   }
 }
 </style>

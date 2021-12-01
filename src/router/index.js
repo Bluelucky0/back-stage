@@ -1,7 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Main from '../views/Main.vue'
-
+//解决路由重复点击出错问题
+const originPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location){
+  return originPush.call(this,location).catch(err => err)
+}
 Vue.use(VueRouter)
 
 const routes = [
@@ -14,19 +18,20 @@ const routes = [
         path:'/',
         name:'home',
         component:()=>import(/* webpackChunkName: "about" */ '../views/Home/Home.vue')
-      }
+      },
+      {
+        path:'/mall',
+        name:'mall',
+        component:()=>import(/* webpackChunkName: "about" */ '../views/Mall/Mall.vue')
+      },
+      {
+        path:'/user',
+        name:'user',
+        component:()=>import(/* webpackChunkName: "about" */ '../views/User/User.vue')
+      },
     ]
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About')
   }
 ]
-
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,

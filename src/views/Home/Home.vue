@@ -1,6 +1,6 @@
 <template>
   <el-row :gutter="20" class="home">
-    <el-col :span="8" style="margin-top: 20px">
+    <el-col :span="8" style="margin-top: 10px">
       <el-card shadow="hover" class="topCard">
         <div class="card-top">
           <img src="/img/imgs/111.jpg" alt="" />
@@ -53,7 +53,7 @@
       </el-card>
     </el-col>
 
-    <el-col :span="16" style="margin-top: 20px">
+    <el-col :span="16" style="margin-top: 10px">
       <div class="num">
         <el-card
           class="card-card"
